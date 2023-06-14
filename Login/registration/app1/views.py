@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
 @login_required(login_url='login')
 def HomePage(request):
@@ -18,6 +19,7 @@ def SignupPage(request):
         else:
             my_user=User.objects.create_user(uname,email,pass1)
             my_user.save()
+            messages.success(request, "Account created successfully. You can now login.")
             return redirect('login')
         
 
